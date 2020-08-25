@@ -1,7 +1,12 @@
 import React, { Component } from "react";
-import { Table } from 'semantic-ui-react';
+import { Table, Input } from 'semantic-ui-react';
 
 class BasicTable extends Component {
+
+  // state = {
+  //   search: ""
+  // }
+
   constructor(props){
     super(props)
     this.state = {
@@ -21,10 +26,21 @@ class BasicTable extends Component {
     })
   }
 
-  render(){
+  // onchange = e => {
+  //   this.setState({ search : e.target.value })
+  // }
 
+  render(){
+    const {search} = this.state;
     var {items, loading} = this.state
 
+    // const itemsFiltered = items.filter( user => {
+    //   return items.name.first.toLowerCase().indexOf (search.toLowerCase()) !== -1
+    //  } )
+
+    if(search !== "" && items.name.first.indexOf ( search ) === -1) {
+      return null
+    }
     if (!loading) {
       return (
         <div>Loading ... </div>
@@ -34,6 +50,7 @@ class BasicTable extends Component {
 
       return (
         <div>
+          <Input label="Search Employees" icon="search" onChange={this.onchange}/>
         <Table basic='very'>
       <Table.Header>
         <Table.Row>
